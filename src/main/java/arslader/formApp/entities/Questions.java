@@ -1,6 +1,8 @@
 package arslader.formApp.entities;
 
 import arslader.formApp.Views.Views;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -20,26 +22,26 @@ public class Questions {
     private boolean multiple;
 
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JoinColumn(name = "question_id")
-    private List<Answers> answers;
+    @OneToMany(mappedBy = "questions", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Answers> answers = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "questions")
 //    private List<Answers> answers;
 
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name="forms_id")
-//    private Forms form;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "forms_id")
+    @JsonBackReference
+    private Forms forms;
 
 
 
     public Questions() {};
 
-    public Questions(String question, List<Answers> answers, boolean multiple) {
+    public Questions(String question, Forms forms) {
         this.question = question;
-        this.answers = answers;
-        this.multiple = multiple;
+        this.forms = forms;
     }
 
 
@@ -55,7 +57,7 @@ public class Questions {
         this.question = question;
     }
 
-    public List getAnswers() {
+    public List<Answers> getAnswers() {
         return answers;
     }
 
@@ -66,5 +68,6 @@ public class Questions {
     public boolean isMultiple() { return multiple; }
 
     public void setMultiple(boolean multiple) { this.multiple = multiple; }
+
 
 }

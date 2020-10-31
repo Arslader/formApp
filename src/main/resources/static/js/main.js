@@ -61,7 +61,7 @@ Vue.component('fillForm', {
     },
 
     template:  '<div class="container row">' +
-                    '<div class="border rounded col-sm-3 ml-3" v-for="(form, index) in viewForms" :key="form.id"  >' +
+                    '<div class="border rounded col-sm-4 ml-3" v-for="(form, index) in viewForms" :key="form.id"  >' +
                         '<div class="my-2">{{form.author.username}}</div>' +
                         '<div class="mb-4 mx-2 h5">{{form.formName}}</div>' +
                         '<div v-for="(question, index) in form.questions" :key="question.id"  >' +
@@ -88,6 +88,7 @@ Vue.component('viewForm', {
             previousRadioButton: null,
             previousName: null,
             viewForms : "",
+            saveForm: "",
         }
     },
     created() {
@@ -115,8 +116,8 @@ Vue.component('viewForm', {
             this.previousName = name
             answer.filled = !answer.filled
         },
-        sendForm() {
-            viewFormApi.update({}, this.viewForms)
+        sendForm(form) {
+            viewFormApi.update({}, form)
         }
     },
     template: '<div>'+
@@ -137,9 +138,9 @@ Vue.component('viewForm', {
                                 '<label class="form-check-label">{{answer.answer}}</label>' +
                             '</div>' +
                         '</div>' +
+                        '<button class="btn btn-primary ml-2" type="button" @click="sendForm(form)">Отправить данные</button>' +
                     '</div>' +
               '</div>'+
-              '<button class="btn btn-primary ml-3" type="button" @click="sendForm">Отправить данные</button>' +
               '</div>'
 })
 

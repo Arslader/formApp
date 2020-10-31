@@ -25,6 +25,7 @@ public class FillFormController {
     private FormRepo formRepo;
 
     @GetMapping
+    @JsonView(Views.UI.class)
     public String fill() {
 
         return "fillForm";

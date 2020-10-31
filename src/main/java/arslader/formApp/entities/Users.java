@@ -2,6 +2,7 @@ package arslader.formApp.entities;
 
 import arslader.formApp.Views.Views;
 import arslader.formApp.helpers.CustomAuthorityDeserializer;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,7 +32,7 @@ public class Users implements UserDetails {
     @JsonView(Views.REST.class)
     private boolean active;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     List<Forms> forms = new ArrayList<Forms>();
 
 

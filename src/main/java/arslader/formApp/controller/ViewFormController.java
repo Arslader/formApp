@@ -4,6 +4,7 @@ import arslader.formApp.Views.Views;
 import arslader.formApp.entities.Forms;
 import arslader.formApp.entities.Questions;
 import arslader.formApp.entities.Users;
+import arslader.formApp.helpers.BidirectionalCreation;
 import arslader.formApp.repositories.FormRepo;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class ViewFormController {
 
     @Autowired
     private FormRepo formRepo;
+
+    private BidirectionalCreation createNewForm = new BidirectionalCreation();
 
     @GetMapping
     public String viewForm() {
@@ -45,22 +48,17 @@ public class ViewFormController {
     @PutMapping("/forms")
     @ResponseBody
     @JsonView(Views.UI.class)
-    public void updateForm(@RequestBody Iterable<Forms> forms, @AuthenticationPrincipal Users user) {
+    public void updateForm(@RequestBody Forms form, @AuthenticationPrincipal Users user) {
 
-        for (Forms form: forms) {
                 if(form.getAuthor()==null || form.getAuthor().getUsername().equals(user.getUsername())) {
                     form.setAuthor(user);
                     formRepo.save(form);
                 }
                 else{
-                    Forms formClone = new Forms(form.getFormName(),
-                                                form.getQuestions(),
-                                                form.getAuthor());
+                    Forms formClone = createNewForm.createForm(form);
                     formClone.setAuthor(user);
                     formRepo.save(formClone);
                 }
         }
-    }
-
 
 }

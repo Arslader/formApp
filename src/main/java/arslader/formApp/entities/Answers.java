@@ -1,6 +1,7 @@
 package arslader.formApp.entities;
 
 import arslader.formApp.Views.Views;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -21,15 +22,17 @@ public class Answers {
 
     public Answers() {};
 
-    public Answers(String answer, boolean filled) {
+    public Answers(String answer, Questions questions, boolean filled) {
         this.answer = answer;
+        this.questions = questions;
         this.filled = filled;
     }
 
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "questions_id")
-//    private Questions question;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "questions_id")
+    @JsonBackReference
+    private Questions questions;
 
 
 

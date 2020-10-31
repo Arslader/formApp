@@ -1,6 +1,8 @@
 package arslader.formApp.entities;
 
 import arslader.formApp.Views.Views;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.sun.istack.NotNull;
 
@@ -16,13 +18,15 @@ public class Forms {
 
     }
 
-    public Forms(String formName, List<Questions> questions, Users author) {
+    public Forms(String formName) {
         this.formName=formName;
-        this.questions=questions;
-        this.author=author;
     }
 
-
+    public Forms(String formName, List<Questions> questions, Users author) {
+        this.formName=formName;
+        this.questions = questions;
+        this.author = author;
+    }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -31,8 +35,8 @@ public class Forms {
 
     private String formName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @JoinColumn(name = "forms_id")
+    @OneToMany(mappedBy = "forms", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Questions> questions = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "form", cascade=CascadeType.ALL, orphanRemoval = true)
