@@ -1,6 +1,7 @@
 package arslader.formApp.helpers;
 
 import arslader.formApp.entities.Answers;
+import arslader.formApp.entities.FilledForms;
 import arslader.formApp.entities.Forms;
 import arslader.formApp.entities.Questions;
 import org.springframework.context.annotation.Bean;
@@ -12,9 +13,9 @@ public class BidirectionalCreation {
 
     public BidirectionalCreation() {}
 
-    public Forms createForm(Forms forms) {
+    public FilledForms createForm(FilledForms forms) {
 
-        Forms newForm = new Forms(forms.getFormName());
+        FilledForms newForm = new FilledForms(forms.getFormName());
 
         List<Questions> questions = new ArrayList<>();
 
@@ -23,7 +24,9 @@ public class BidirectionalCreation {
 
         for ( int i=0; i < forms.getQuestions().size(); i++) {
 
-            Questions question = new Questions(forms.getQuestions().get(i).getQuestion(), newForm );
+            Questions question = new Questions(forms.getQuestions().get(i).getQuestion(),
+                    forms.getQuestions().get(i).isMultiple(), newForm);
+                 //   question.setForms(form);
 
             for ( int j=0; j < forms.getQuestions().get(i).getAnswers().size(); j++) {
 

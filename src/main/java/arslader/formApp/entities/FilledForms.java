@@ -12,35 +12,39 @@ import java.util.List;
 
 @Entity
 @JsonView(Views.UI.class)
-public class Forms {
+public class FilledForms {
 
-    public Forms() {
+    public FilledForms() {
 
     }
 
-    public Forms(String formName) {
+    public FilledForms(String formName) {
         this.formName=formName;
     }
 
-    public Forms(String formName, List<Questions> questions) {
+    public FilledForms(String formName, List<Questions> questions, Users author) {
         this.formName=formName;
         this.questions = questions;
+        this.author = author;
     }
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-
     private long id;
 
     private String formName;
 
-    @OneToMany(mappedBy = "forms", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference(value="forms")
+    @OneToMany(mappedBy = "filledForms", cascade = CascadeType.ALL)
+    @JsonManagedReference(value="filledForms")
     private List<Questions> questions = new ArrayList<>();
 
 //    @OneToMany(mappedBy = "form", cascade=CascadeType.ALL, orphanRemoval = true)
 //    private List<Questions> questions = new ArrayList<>();
 
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private Users author;
 
     public long getId() { return id; }
 
@@ -54,6 +58,9 @@ public class Forms {
 
     public void setQuestions(List<Questions> questions) { this.questions = questions; }
 
+    public Users getAuthor() { return author; }
+
+    public void setAuthor(Users author) { this.author = author; }
 
 
 }

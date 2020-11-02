@@ -1,8 +1,10 @@
 package arslader.formApp.controller;
 
 import arslader.formApp.Views.Views;
+import arslader.formApp.entities.FilledForms;
 import arslader.formApp.entities.Forms;
 import arslader.formApp.entities.Questions;
+import arslader.formApp.repositories.FilledFormRepo;
 import arslader.formApp.repositories.FormRepo;
 import arslader.formApp.repositories.QuestionRepo;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -22,7 +24,7 @@ import java.util.Map;
 public class FillFormController {
 
     @Autowired
-    private FormRepo formRepo;
+    private FilledFormRepo filledFormRepo;
 
     @GetMapping
     @JsonView(Views.UI.class)
@@ -34,9 +36,9 @@ public class FillFormController {
     @GetMapping("/forms")
     @ResponseBody
     @JsonView(Views.UI.class)
-    public Iterable<Forms> getForms() {
+    public Iterable<FilledForms> getForms() {
 
-        return formRepo.findAll();
+        return filledFormRepo.findAll();
     }
 
 

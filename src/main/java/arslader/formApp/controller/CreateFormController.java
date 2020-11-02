@@ -27,7 +27,7 @@ public class CreateFormController {
     @Autowired
     private FormRepo formRepo;
 
-    private BidirectionalCreation createNewForm = new BidirectionalCreation();
+ //   private BidirectionalCreation createNewForm = new BidirectionalCreation();
 
     private String lastFormName = "";
 
@@ -41,12 +41,21 @@ public class CreateFormController {
     @ResponseBody
     public Forms createForm(@RequestBody Forms forms) {
 
-        if(lastFormName.equals(forms.getFormName())) { return forms; }
-        else {lastFormName= forms.getFormName(); }
+//        if(lastFormName.equals(forms.getFormName())) { return forms; }
+//        else {lastFormName= forms.getFormName(); }
 
-        Forms newForm = createNewForm.createForm(forms);
+ //       Forms newForm = createNewForm.createForm(forms);
 
-        return formRepo.save(newForm);
+        List<Questions> questions = forms.getQuestions();
+        for (Questions question: questions) {
+            question.setForms(forms);
+            List<Answers> answers = question.getAnswers();
+            for (Answers answer: answers) {
+                answer.setQuestions(question);
+            }
+        }
+
+        return formRepo.save(forms);
     }
 
 }

@@ -22,6 +22,7 @@ public class Answers {
 
     public Answers() {};
 
+
     public Answers(String answer, Questions questions, boolean filled) {
         this.answer = answer;
         this.questions = questions;
@@ -52,6 +53,9 @@ public class Answers {
 
     public void setFilled(boolean filled) { this.filled = filled; }
 
+    public Questions getQuestions() { return questions; }
+
+    public void setQuestions(Questions questions) { this.questions = questions; }
 
 
 }

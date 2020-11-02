@@ -32,16 +32,22 @@ public class Questions {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "forms_id")
-    @JsonBackReference
+    @JsonBackReference(value="forms")
     private Forms forms;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "filledForms_id")
+    @JsonBackReference(value="filledForms")
+    private FilledForms filledForms;
 
 
     public Questions() {};
 
-    public Questions(String question, Forms forms) {
+    public Questions(String question, boolean multiple, FilledForms forms) {
         this.question = question;
-        this.forms = forms;
+        this.multiple = multiple;
+        this.filledForms = forms;
+
     }
 
 
@@ -68,6 +74,14 @@ public class Questions {
     public boolean isMultiple() { return multiple; }
 
     public void setMultiple(boolean multiple) { this.multiple = multiple; }
+
+    public Forms getForms() { return forms; }
+
+    public void setForms(Forms forms) { this.forms = forms; }
+
+    public FilledForms getFilledForms() { return filledForms; }
+
+    public void setFilledForms(FilledForms filledForms) { this.filledForms = filledForms; }
 
 
 }

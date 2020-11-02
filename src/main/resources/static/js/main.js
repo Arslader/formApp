@@ -122,7 +122,7 @@ Vue.component('viewForm', {
     },
     template: '<div>'+
               '<div class="container row">' +
-                    '<div class="border rounded col-sm-3 ml-3" v-for="(form, index) in viewForms" :key="form.id"  >' +
+                    '<div class="border rounded col-sm-4 ml-3" v-for="(form, index) in viewForms" :key="form.id"  >' +
                         '<div class="my-4 mx-2 h5">{{form.formName}}</div>' +
                         '<div v-for="(question, index) in form.questions" :key="question.id"  >' +
                             '<div class="my-3 mx-2 h6">{{question.question}}</div> ' +

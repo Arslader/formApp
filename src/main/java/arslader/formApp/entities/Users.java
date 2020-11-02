@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name= "USERSFORM")
+@Table(name= "FORMUSER")
 @JsonView(Views.UI.class)
 public class Users implements UserDetails {
 
@@ -33,7 +33,7 @@ public class Users implements UserDetails {
     private boolean active;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
-    List<Forms> forms = new ArrayList<Forms>();
+    List<FilledForms> forms = new ArrayList<FilledForms>();
 
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
