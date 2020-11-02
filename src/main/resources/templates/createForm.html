@@ -31,15 +31,11 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]] ! </a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthentificated()">
-                <a class="nav-link" href="/login">Логин </a>
-                Roles: <span sec:authentication="principal.authorities">[USER, ADMIN]</span>
+                <a class="nav-link" th:inline="text">[[${#httpServletRequest.remoteUser}]] </a>
             </li>
         </ul>
-        <form  navbar-nav action="/logout" method="post" sec:authorize="isAuthentificated()">
-            <input class="nav-item" type="submit" value="Sign Out"/>
+        <form  class="navbar-nav" action="/logout" method="post" >
+            <button class="btn btn-primary" type="submit" value="Sign Out">Выйти</button>
         </form>
     </div>
 </nav>

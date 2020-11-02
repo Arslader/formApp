@@ -41,6 +41,17 @@ public class ViewFormController {
     @JsonView(Views.UI.class)
     public Iterable<Forms> getForm() {
 
+        Iterable<Forms> forms = formRepo.findAll();
+
+        for (Forms form: forms) {
+            List<Questions> questions = form.getQuestions();
+            for (Questions question:questions) {
+                List<Answers> answers = question.getAnswers();
+                for (Answers answer: answers) {
+                    answer.setFilled(false);
+                }
+            }
+        }
 
         return formRepo.findAll();
     }

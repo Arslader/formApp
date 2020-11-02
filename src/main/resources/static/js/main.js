@@ -239,10 +239,8 @@ Vue.component('createForm', {
             this.forms.questions[questionindex].question = questionReturn
         },
         answersBack(answersReturn, questionindex, answerIndex) {
-            if(this.answerIndex > answerIndex) {this.answerIndex=answerIndex}     // здесь косяк. Возможна ошибка
-            if(this.answerIndex < answerIndex) {
-                this.forms.questions[questionindex].answers.push({answer: ""})
-                this.answerIndex=answerIndex
+            if(this.forms.questions[questionindex].answers.length===answerIndex) {
+                this.forms.questions[questionindex].answers.push({answer: answersReturn})
             }
             this.forms.questions[questionindex].answers[answerIndex].answer=answersReturn
         },
