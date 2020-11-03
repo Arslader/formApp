@@ -1,10 +1,8 @@
 package arslader.formApp.entities;
 
 import arslader.formApp.Views.Views;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -37,9 +35,6 @@ public class Forms {
     @OneToMany(mappedBy = "forms", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference(value="forms")
     private List<Questions> questions = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "form", cascade=CascadeType.ALL, orphanRemoval = true)
-//    private List<Questions> questions = new ArrayList<>();
 
 
     public long getId() { return id; }

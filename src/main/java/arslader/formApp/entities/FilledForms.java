@@ -38,9 +38,6 @@ public class FilledForms {
     @JsonManagedReference(value="filledForms")
     private List<Questions> questions = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "form", cascade=CascadeType.ALL, orphanRemoval = true)
-//    private List<Questions> questions = new ArrayList<>();
-
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")

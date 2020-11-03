@@ -26,8 +26,6 @@ public class Questions {
     @JsonManagedReference
     private List<Answers> answers = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "questions")
-//    private List<Answers> answers;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
